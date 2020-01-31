@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Wandxx\Providers;
+namespace Wandxx\Transaction\Providers;
 
 
 use Illuminate\Support\ServiceProvider;
