@@ -39,7 +39,7 @@ class TransactionServiceProvider extends ServiceProvider
         ], "migrations");
 
         $this->publishes([
-            __DIR__ . "/../Configs/transaction.php" => config_path("config.php")
+            __DIR__ . "/../Configs/transaction.php" => config_path("transaction.php")
         ], "config");
     }
 
