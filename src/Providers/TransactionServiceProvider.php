@@ -14,12 +14,12 @@ class TransactionServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->_publishing();
+        $this->_registerConfig();
     }
 
     public function boot(): void
     {
-        $this->_registerConfig();
+        $this->_publishing();
         $this->_bindRepository();
     }
 
