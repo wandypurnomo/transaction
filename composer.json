@@ -1,0 +1,29 @@
+{
+    "name": "wandxx/transaction",
+    "description": "transaction library",
+    "type": "laravel-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "wandy purnomo",
+            "email": "wandypurnomo92@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Wandxx\\Transaction\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wandxx\\Transaction\\Providers\\TransactionServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "wandxx/support": "^1.0",
+        "envant/fireable": "^1.0"
+    }
+}
