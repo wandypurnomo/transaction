@@ -45,7 +45,7 @@ class TransactionServiceProvider extends ServiceProvider
 
     private function _bindRepository(): void
     {
-        $this->app->register(TransactionRepositoryContract::class, TransactionRepository::class);
-        $this->app->register(TransactionDetailRepositoryContract::class, TransactionDetailRepository::class);
+        $this->app->bind(TransactionRepositoryContract::class, TransactionRepository::class);
+        $this->app->bind(TransactionDetailRepositoryContract::class, TransactionDetailRepository::class);
     }
 }
