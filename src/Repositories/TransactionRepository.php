@@ -19,9 +19,9 @@ class TransactionRepository implements TransactionRepositoryContract
     use FindableTrait, StorableTrait;
     private $_model;
 
-    public function __construct(Transaction $_model)
+    public function __construct()
     {
-        $this->_model = $_model;
+        $this->_model = resolve(config("transaction.transaction_model"));
     }
 
     public function all(Request $request, ?string $userId, int $perPage = 10): LengthAwarePaginator
