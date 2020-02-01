@@ -14,7 +14,7 @@ class TransactionType implements ConstantInterface
     const DR = 1;
     const CR = 2;
 
-    public function labels(): array
+    public static function labels(): array
     {
         return [
             self::DR => "Debit",

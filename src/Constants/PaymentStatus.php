@@ -14,7 +14,7 @@ class PaymentStatus implements ConstantInterface
     const UNPAID = 1;
     const PAID = 2;
 
-    public function labels(): array
+    public static function labels(): array
     {
         return [
             self::PAID => "Paid",
