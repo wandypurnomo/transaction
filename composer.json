@@ -12,7 +12,10 @@
     "autoload": {
         "psr-4": {
             "Wandxx\\Transaction\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/transaction_helper.php"
+        ]
     },
     "minimum-stability": "stable",
     "extra": {
