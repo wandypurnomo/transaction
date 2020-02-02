@@ -23,8 +23,6 @@ class TransactionServiceProvider extends ServiceProvider
     {
         $this->_publishing();
         $this->_bindRepository();
-        $this->_registerServices();
-        $this->_registerFacades();
     }
 
     private function _registerConfig(): void
