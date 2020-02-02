@@ -52,14 +52,4 @@ class TransactionServiceProvider extends ServiceProvider
         $this->app->bind(TransactionRepositoryContract::class, TransactionRepository::class);
         $this->app->bind(TransactionDetailRepositoryContract::class, TransactionDetailRepository::class);
     }
-
-    private function _registerServices(): void
-    {
-        $this->app->register(CartServiceProvider::class);
-
-    }
-
-    private function _registerFacades():void{
-        $this->app->alias("CartService", CartServiceFacade::class);
-    }
 }
