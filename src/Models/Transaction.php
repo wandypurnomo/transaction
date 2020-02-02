@@ -39,6 +39,6 @@ class Transaction extends Model
 
     public function details()
     {
-        return $this->hasMany(config("transaction.transaction_model"), "transaction_id");
+        return $this->hasMany(config("transaction.transaction_detail_model"), "transaction_id");
     }
 }
