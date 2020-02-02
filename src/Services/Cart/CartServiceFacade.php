@@ -10,6 +10,6 @@ class CartServiceFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return CartService::class;
+        return "cartService";
     }
 }

@@ -12,11 +12,13 @@ class CartServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $cartService = new CartService(
-            resolve(TransactionRepositoryContract::class),
-            resolve(TransactionDetailRepositoryContract::class)
-        );
 
-        $this->app->instance(CartService::class, $cartService);
+
+        $this->app->bind("cartService",function(){
+            return new CartService(
+                resolve(TransactionRepositoryContract::class),
+                resolve(TransactionDetailRepositoryContract::class)
+            );
+        });
     }
 }
