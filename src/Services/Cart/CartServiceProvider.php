@@ -17,6 +17,6 @@ class CartServiceProvider extends ServiceProvider
             resolve(TransactionDetailRepositoryContract::class)
         );
 
-        $this->app->bind(CartService::class, $cartService);
+        $this->app->instance(CartService::class, $cartService);
     }
 }

@@ -15,11 +15,9 @@ class TransactionItem
         $this->_name = $_name;
         $this->_qty = $_qty;
         $this->_price = $_price;
-
-        return $this->_buildDataSet();
     }
 
-    private function _buildDataSet(): array
+    private function data(): array
     {
         return [
             "name" => $this->_name,
