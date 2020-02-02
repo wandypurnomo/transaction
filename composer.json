@@ -19,6 +19,9 @@
         "laravel": {
             "providers": [
                 "Wandxx\\Transaction\\Providers\\TransactionServiceProvider"
+            ],
+            "facades": [
+                "Wandxx\\Transaction\\Services\\Cart\\"
             ]
         }
     },

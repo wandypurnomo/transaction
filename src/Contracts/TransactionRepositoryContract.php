@@ -18,4 +18,6 @@ interface TransactionRepositoryContract extends FindableInterface
     public function updateTransactionStatusById(string $transactionId, int $status): Model;
 
     public function createTransaction(string $userId, array $data): Model;
+
+    public function getCurrentCart(string $userId):Model;
 }

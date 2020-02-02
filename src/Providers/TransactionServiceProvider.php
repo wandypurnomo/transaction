@@ -9,6 +9,8 @@ use Wandxx\Transaction\Contracts\TransactionDetailRepositoryContract;
 use Wandxx\Transaction\Contracts\TransactionRepositoryContract;
 use Wandxx\Transaction\Repositories\TransactionDetailRepository;
 use Wandxx\Transaction\Repositories\TransactionRepository;
+use Wandxx\Transaction\Services\Cart\CartServiceFacade;
+use Wandxx\Transaction\Services\Cart\CartServiceProvider;
 
 class TransactionServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,8 @@ class TransactionServiceProvider extends ServiceProvider
     {
         $this->_publishing();
         $this->_bindRepository();
+        $this->_registerServices();
+        $this->_registerFacades();
     }
 
     private function _registerConfig(): void
@@ -47,5 +51,15 @@ class TransactionServiceProvider extends ServiceProvider
     {
         $this->app->bind(TransactionRepositoryContract::class, TransactionRepository::class);
         $this->app->bind(TransactionDetailRepositoryContract::class, TransactionDetailRepository::class);
+    }
+
+    private function _registerServices(): void
+    {
+        $this->app->register(CartServiceProvider::class);
+
+    }
+
+    private function _registerFacades():void{
+        $this->app->alias("CartService", CartServiceFacade::class);
     }
 }

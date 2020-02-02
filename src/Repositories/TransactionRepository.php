@@ -8,8 +8,10 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Wandxx\Support\Traits\FindableTrait;
 use Wandxx\Support\Traits\StorableTrait;
+use Wandxx\Transaction\Constants\TransactionStatus;
 use Wandxx\Transaction\Contracts\TransactionRepositoryContract;
 use Wandxx\Transaction\Events\TransactionCreated;
 use Wandxx\Transaction\Models\Transaction;
@@ -74,5 +76,16 @@ class TransactionRepository implements TransactionRepositoryContract
         $model = $this->_model->newQuery()->create($data);
         event(new TransactionCreated($model));
         return $model;
+    }
+
+    public function getCurrentCart(string $userId): Model
+    {
+        $query = $this->_model->newQuery()->where("status", TransactionStatus::CART)->where("created_by", $userId);
+
+        if ($query->exists()) {
+            return $query->latest()->first();
+        }
+
+        return $this->createTransaction($userId, ["code" => Str::random()]);
     }
 }
