@@ -41,6 +41,12 @@ class TransactionItem
         return $this;
     }
 
+    public function setAdditionalData(array $data): TransactionItem
+    {
+        $this->_components = $data;
+        return $this;
+    }
+
     public function addComponent(string $key, int $value): TransactionItem
     {
         $data = compact("key", "value");
@@ -79,6 +85,13 @@ class TransactionItem
         return [
             "id" => $this->_id,
             "quantity" => $this->_qty
+        ];
+    }
+
+    public function forUpdateAdditionalData():array {
+        return [
+            "id" => $this->_id,
+            "metadata" => $this->_components["metadata"]
         ];
     }
 

@@ -42,4 +42,9 @@ class CartService
     {
         $this->_transactionDetailRepository->updateQty($this->_cart, $data["id"], $data["quantity"]);
     }
+
+    public function updateAdditionalData(array $data): void
+    {
+        $this->_transactionDetailRepository->updateAdditionalData($this->_cart, $data["id"], $data["metadata"]);
+    }
 }

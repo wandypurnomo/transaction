@@ -13,4 +13,6 @@ interface TransactionDetailRepositoryContract
     public function removeItem(Model $transaction, string $itemId): void;
 
     public function updateQty(Model $transaction, string $itemId, int $qty): Model;
+
+    public function updateAdditionalData(Model $transaction, string $itemId, array $metadata): Model;
 }

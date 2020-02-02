@@ -34,4 +34,13 @@ class TransactionDetailRepository implements TransactionDetailRepositoryContract
 
         return $item;
     }
+
+    public function updateAdditionalData(Model $transaction, string $itemId, array $metadata): Model
+    {
+        $item = $transaction->details()->findOrFail($itemId);
+        if (array_key_exists("additional", $item->metadata)) {
+            $item->update(["metadata->additional" => $metadata]);
+        }
+        return $item;
+    }
 }
