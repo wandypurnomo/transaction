@@ -91,7 +91,9 @@ class TransactionItem
     public function forUpdateAdditionalData():array {
         return [
             "id" => $this->_id,
-            "metadata" => $this->_components["metadata"]
+            "metadata" => [
+                "additional" => $this->_components
+            ]
         ];
     }
 
