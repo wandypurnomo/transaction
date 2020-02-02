@@ -22,6 +22,33 @@ class CartService
         $this->_transactionDetailRepository = $_transactionDetailRepository;
     }
 
+    public static function addCartToUser(string $userId, array $data): void
+    {
+        $transactionDetailRepository = resolve(TransactionDetailRepositoryContract::class);
+        $transactionRepository = resolve(TransactionRepositoryContract::class);
+
+        $cart = $transactionRepository->getCurrentCart($userId);
+        $transactionDetailRepository->addItem($cart, $data);
+    }
+
+    public static function removeCartFromUser(string $userId, string $itemId): void
+    {
+        $transactionDetailRepository = resolve(TransactionDetailRepositoryContract::class);
+        $transactionRepository = resolve(TransactionRepositoryContract::class);
+
+        $cart = $transactionRepository->getCurrentCart($userId);
+        $transactionDetailRepository->removeItem($cart, $itemId);
+    }
+
+    public static function updateQuantityOfCart(int $qty, string $itemId, string $userId): void
+    {
+        $transactionDetailRepository = resolve(TransactionDetailRepositoryContract::class);
+        $transactionRepository = resolve(TransactionRepositoryContract::class);
+
+        $cart = $transactionRepository->getCurrentCart($userId);
+        $transactionDetailRepository->updateQty($cart, $itemId, $qty);
+    }
+
     public function getCurrentCart(string $userId): CartService
     {
         $this->_cart = $this->_transactionRepository->getCurrentCart($userId);

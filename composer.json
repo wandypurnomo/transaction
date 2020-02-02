@@ -24,9 +24,9 @@
                 "Wandxx\\Transaction\\Providers\\TransactionServiceProvider",
                 "Wandxx\\Transaction\\Services\\Cart\\CartServiceProvider"
             ],
-            "facades": [
-                "Wandxx\\Transaction\\Services\\Cart\\CartServiceFacade"
-            ]
+            "aliases": {
+                "Cart": "Wandxx\\Transaction\\Services\\Cart\\CartServiceFacade"
+            }
         }
     },
     "require": {
