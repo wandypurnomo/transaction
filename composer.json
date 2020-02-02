@@ -25,7 +25,8 @@
                 "Wandxx\\Transaction\\Services\\Cart\\CartServiceProvider"
             ],
             "aliases": {
-                "Cart": "Wandxx\\Transaction\\Services\\Cart\\CartServiceFacade"
+                "Cart": "Wandxx\\Transaction\\Services\\Cart\\CartServiceFacade",
+                "TransactionItem": "Wandxx\\Transaction\\Services\\Cart\\Objects\\TransactionItemFacade"
             }
         }
     },
