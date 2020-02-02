@@ -26,7 +26,7 @@ class TransactionServiceProvider extends ServiceProvider
     private function _registerConfig(): void
     {
         if (file_exists(config_path("transaction.php"))) {
-            $this->mergeConfigFrom(__DIR__ . config_path("transaction.php"), "transaction");
+            $this->mergeConfigFrom(config_path("transaction.php"), "transaction");
         } else {
             $this->mergeConfigFrom(__DIR__ . "/../Configs/transaction.php", "transaction");
         }
