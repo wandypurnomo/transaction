@@ -5,8 +5,8 @@ if (!function_exists("getCurrentCart")) {
     {
         $cartService = resolve(\Wandxx\Transaction\Services\Cart\CartService::class);
 
-        if ($model = $cartService instanceof \Wandxx\Transaction\Services\Cart\CartService) {
-            return $cartService;
+        if ($cartService instanceof \Wandxx\Transaction\Services\Cart\CartService) {
+            return $cartService->getCurrentCart($userId);
         }
 
         return null;
