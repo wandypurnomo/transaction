@@ -1,21 +1,19 @@
 <?php
 
 
-namespace Wandxx\Transaction\Services\Cart;
+namespace Wandxx\Transaction\Services\Transaction;
 
 
 use Carbon\Laravel\ServiceProvider;
 use Wandxx\Transaction\Contracts\TransactionDetailRepositoryContract;
 use Wandxx\Transaction\Contracts\TransactionRepositoryContract;
 
-class CartServiceProvider extends ServiceProvider
+class TransactionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-
-
-        $this->app->bind("cartService",function(){
-            return new CartService(
+        $this->app->bind("transactionService", function () {
+            return new TransactionService(
                 resolve(TransactionRepositoryContract::class),
                 resolve(TransactionDetailRepositoryContract::class)
             );

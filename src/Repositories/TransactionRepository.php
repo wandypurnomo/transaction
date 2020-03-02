@@ -13,8 +13,6 @@ use Wandxx\Support\Traits\FindableTrait;
 use Wandxx\Support\Traits\StorableTrait;
 use Wandxx\Transaction\Constants\TransactionStatus;
 use Wandxx\Transaction\Contracts\TransactionRepositoryContract;
-use Wandxx\Transaction\Events\TransactionCreated;
-use Wandxx\Transaction\Models\Transaction;
 
 class TransactionRepository implements TransactionRepositoryContract
 {
@@ -31,13 +29,11 @@ class TransactionRepository implements TransactionRepositoryContract
         $query = $this->_model->newQuery();
 
         $where = function (Builder $builder) use ($request, $userId) {
-            if (!is_null($userId)) {
+            if (!is_null($userId))
                 $builder->where("created_by", $userId);
-            }
 
-            if ($request->has("code") && $request->get("code") != "") {
+            if ($request->has("code") && $request->get("code") != "")
                 $builder->where("code", $request->get("code"));
-            }
 
             if ($request->has("status") && $request->get("status") != "") {
                 $status = (int)$request->get("status");
@@ -58,7 +54,6 @@ class TransactionRepository implements TransactionRepositoryContract
     {
         $transaction = $this->find($transactionId);
         $transaction->update(["payment_status" => $paymentStatus]);
-
         return $transaction;
     }
 
@@ -66,26 +61,51 @@ class TransactionRepository implements TransactionRepositoryContract
     {
         $transaction = $this->find($transactionId);
         $transaction->update(["status" => $status]);
-
         return $transaction;
     }
 
     public function createTransaction(string $userId, array $data): Model
     {
         $data["created_by"] = $userId;
-        $model = $this->_model->newQuery()->create($data);
-        event(new TransactionCreated($model));
-        return $model;
+        return $this->_model->newQuery()->create($data);
     }
 
     public function getCurrentCart(string $userId): Model
     {
-        $query = $this->_model->newQuery()->where("status", TransactionStatus::CART)->where("created_by", $userId);
+        $query = $this
+            ->_model
+            ->newQuery()
+            ->where("status", TransactionStatus::CART)
+            ->where("created_by", $userId);
 
-        if ($query->exists()) {
-            return $query->latest()->first();
-        }
-
+        if ($query->exists()) return $query->latest()->first();
         return $this->createTransaction($userId, ["code" => Str::random()]);
+    }
+
+    public function hasCart(string $userId): bool
+    {
+        return $this
+            ->_model
+            ->newQuery()
+            ->where("status", TransactionStatus::CART)
+            ->where("created_by", $userId)
+            ->exists();
+    }
+
+    public function clearCart(string $userId): void
+    {
+        $this
+            ->_model
+            ->newQuery()
+            ->where("status", TransactionStatus::CART)
+            ->where("created_by", $userId)
+            ->firstOrFail()
+            ->delete();
+    }
+
+    public function checkout(Model $transaction): Model
+    {
+        $transaction->update(["status" => TransactionStatus::WAITING_FOR_PAYMENT]);
+        return $transaction;
     }
 }

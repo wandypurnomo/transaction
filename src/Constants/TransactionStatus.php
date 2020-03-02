@@ -16,6 +16,7 @@ class TransactionStatus implements ConstantInterface
     const ON_GOING = 2;
     const DONE = 3;
     const FAILED = 4;
+    const WAITING_FOR_PAYMENT = 5;
 
     public static function labels(): array
     {
@@ -24,7 +25,8 @@ class TransactionStatus implements ConstantInterface
             self::PLACED => "Placed",
             self::ON_GOING => "On Going",
             self::DONE => "Done",
-            self::FAILED => "Failed"
+            self::FAILED => "Failed",
+            self::WAITING_FOR_PAYMENT => "Waiting For Payment"
         ];
     }
 }

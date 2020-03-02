@@ -22,11 +22,10 @@
         "laravel": {
             "providers": [
                 "Wandxx\\Transaction\\Providers\\TransactionServiceProvider",
-                "Wandxx\\Transaction\\Services\\Cart\\CartServiceProvider"
+                "Wandxx\\Transaction\\Services\\Transaction\\TransactionServiceProvider"
             ],
             "aliases": {
-                "Cart": "Wandxx\\Transaction\\Services\\Cart\\CartServiceFacade",
-                "TransactionItem": "Wandxx\\Transaction\\Services\\Cart\\Objects\\TransactionItemFacade"
+                "Trx": "Wandxx\\Transaction\\Services\\Transaction\\TransactionServiceFacade"
             }
         }
     },

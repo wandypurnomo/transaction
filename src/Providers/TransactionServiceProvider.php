@@ -9,8 +9,6 @@ use Wandxx\Transaction\Contracts\TransactionDetailRepositoryContract;
 use Wandxx\Transaction\Contracts\TransactionRepositoryContract;
 use Wandxx\Transaction\Repositories\TransactionDetailRepository;
 use Wandxx\Transaction\Repositories\TransactionRepository;
-use Wandxx\Transaction\Services\Cart\CartServiceFacade;
-use Wandxx\Transaction\Services\Cart\CartServiceProvider;
 
 class TransactionServiceProvider extends ServiceProvider
 {

@@ -1,11 +1,13 @@
 <?php
 
-if (!function_exists("getCurrentCart")) {
-    function getCurrentCart(string $userId): ?\Wandxx\Transaction\Services\Cart\CartService
-    {
-        $cartService = resolve(\Wandxx\Transaction\Services\Cart\CartService::class);
+use Wandxx\Transaction\Services\Transaction\TransactionService;
 
-        if ($cartService instanceof \Wandxx\Transaction\Services\Cart\CartService) {
+if (!function_exists("getCurrentCart")) {
+    function getCurrentCart(string $userId): ?TransactionService
+    {
+        $cartService = resolve(TransactionService::class);
+
+        if ($cartService instanceof TransactionService) {
             return $cartService->getCurrentCart($userId);
         }
 
