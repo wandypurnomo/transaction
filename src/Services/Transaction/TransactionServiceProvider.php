@@ -13,7 +13,7 @@ class TransactionServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind("transactionService", function () {
-            return new TransactionService(
+            return new MainTransactionService(
                 resolve(TransactionRepositoryContract::class),
                 resolve(TransactionDetailRepositoryContract::class)
             );

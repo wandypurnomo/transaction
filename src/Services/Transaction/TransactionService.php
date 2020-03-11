@@ -4,7 +4,7 @@
 namespace Wandxx\Transaction\Services\Transaction;
 
 
-use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Wandxx\Transaction\Constants\PaymentStatus;
 use Wandxx\Transaction\Constants\TransactionStatus;
 use Wandxx\Transaction\Contracts\TransactionDetailRepositoryContract;
@@ -14,90 +14,41 @@ class TransactionService
 {
     private $_transactionRepository;
     private $_transactionDetailRepository;
-    private $_cart;
+    private $_transaction;
 
     public function __construct(
+        Model $_transaction,
         TransactionRepositoryContract $_transactionRepository,
         TransactionDetailRepositoryContract $_transactionDetailRepository
     )
     {
+        $this->_transaction = $_transaction;
         $this->_transactionRepository = $_transactionRepository;
         $this->_transactionDetailRepository = $_transactionDetailRepository;
     }
 
-    public function getCurrentCart(string $userId): TransactionService
+    public function setAsPlaced(): void
     {
-        $this->_cart = $this->_transactionRepository->getCurrentCart($userId);
-        return $this;
+        $this->_transactionRepository->updateTransactionStatusById($this->_transaction->id, TransactionStatus::PLACED);
     }
 
-    public function addCart(array $data): void
+    public function setAsOnGoing(): void
     {
-        $this->_transactionDetailRepository->addItem($this->_cart, $data);
+        $this->_transactionRepository->updateTransactionStatusById($this->_transaction->id, TransactionStatus::ON_GOING);
     }
 
-    public function removeCart(string $itemId): void
+    public function setAsDone(): void
     {
-        $this->_transactionDetailRepository->removeItem($this->_cart, $itemId);
+        $this->_transactionRepository->updateTransactionStatusById($this->_transaction->id, TransactionStatus::DONE);
     }
 
-    public function updateQty(array $data): void
+    public function setAsFailed(): void
     {
-        throw_if(
-            !array_key_exists("quantity", $data),
-            new Exception("required data not satisfied.")
-        );
-
-        $this->_transactionDetailRepository->updateQty($this->_cart, $data["quantity"]);
+        $this->_transactionRepository->updateTransactionStatusById($this->_transaction->id, TransactionStatus::FAILED);
     }
 
-    public function updateAdditionalData(array $data): void
+    public function setAsPaid(): void
     {
-        throw_if(
-            !array_key_exists("metadata", $data),
-            new Exception("required data not satisfied.")
-        );
-
-        $this->_transactionDetailRepository->updateAdditionalData($this->_cart, $data["metadata"]);
-    }
-
-    public function hasCart(string $userId): bool
-    {
-        return $this->_transactionRepository->hasCart($userId);
-    }
-
-    public function clearCart(string $userId): void
-    {
-        $this->_transactionRepository->clearCart($userId);
-    }
-
-    public function checkout(): void
-    {
-        $this->_transactionRepository->checkout($this->_cart);
-    }
-
-    public function setAsPlaced(string $transactionId): void
-    {
-        $this->_transactionRepository->updateTransactionStatusById($transactionId, TransactionStatus::PLACED);
-    }
-
-    public function setAsOnGoing(string $transactionId): void
-    {
-        $this->_transactionRepository->updateTransactionStatusById($transactionId, TransactionStatus::ON_GOING);
-    }
-
-    public function setAsDone(string $transactionId): void
-    {
-        $this->_transactionRepository->updateTransactionStatusById($transactionId, TransactionStatus::DONE);
-    }
-
-    public function setAsFailed(string $transactionId): void
-    {
-        $this->_transactionRepository->updateTransactionStatusById($transactionId, TransactionStatus::FAILED);
-    }
-
-    public function setAsPaid(string $transactionId): void
-    {
-        $this->_transactionRepository->updatePaymentStatusById($transactionId, PaymentStatus::PAID);
+        $this->_transactionRepository->updatePaymentStatusById($this->_transaction->id, PaymentStatus::PAID);
     }
 }

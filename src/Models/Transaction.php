@@ -47,6 +47,7 @@ class Transaction extends Model
 
     protected static function boot()
     {
+        parent::boot();
         self::created(function (Model $model) {
             event(new TransactionCreated($model));
         });
